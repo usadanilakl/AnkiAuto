@@ -1,8 +1,6 @@
 package com.anki_auto.pages;
 
 import com.anki_auto.Driver;
-import com.anki_auto.Utils;
-import com.anki_auto.enums.Type;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,7 +28,7 @@ public class NewCardPage {
     public WebElement addButton;
     @FindBy(css = "div.logo-container")
     public WebElement logo;
-    public void create(String type, String deck, String input){
+    public void createSpanish(String type, String deck, String input){
         selectType(type);
         selectDeck(deck);
         List<Map<String, String>> cards = separate(input, new String[]{"%", "\\$"});
@@ -38,7 +36,7 @@ public class NewCardPage {
         int added = 0;
 
         for (Map<String, String> card : cards) {
-            addCard(card.get("english"),card.get("spanish"));
+            addCardSpanish(card.get("english"),card.get("spanish"));
             System.out.println("added++ = " + added++);
         }
 
@@ -47,7 +45,40 @@ public class NewCardPage {
 
     }
 
-    private void addCard(String eng, String span){
+    public void createEnglish(String type, String deck, String input){
+        selectType(type);
+        selectDeck(deck);
+        List<Map<String, String>> cards = separate(input, new String[]{"%", "\\$"});
+        System.out.println("length: "+cards.size());
+        int added = 0;
+
+        for (Map<String, String> card : cards) {
+            addCardEnglish(card.get("english"),card.get("spanish"));
+            System.out.println("added++ = " + added++);
+        }
+
+        System.out.println("added: "+added);
+        Driver.closeDriver();
+
+    }
+
+    private void addCardSpanish(String eng, String span){
+        while (true){
+            if(front.getText().length()>0) front.clear();
+            if(!logo.getAttribute("class").contains("spin"))front.sendKeys(span);
+            if(front.getText().equals(span)) break;
+        }
+        while (true){
+            if(back.getText().length()>0) back.clear();
+            back.sendKeys(eng);
+            if(back.getText().equals(eng)) break;
+        }
+
+        wait.until(ExpectedConditions.elementToBeClickable(addButton));
+        addButton.click();
+    }
+
+    private void addCardEnglish(String eng, String span){
         while (true){
             if(front.getText().length()>0) front.clear();
             if(!logo.getAttribute("class").contains("spin"))front.sendKeys(eng);

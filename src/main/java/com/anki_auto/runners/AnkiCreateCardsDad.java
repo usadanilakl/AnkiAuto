@@ -1,9 +1,7 @@
 package com.anki_auto.runners;
 
 import com.anki_auto.Driver;
-import com.anki_auto.enums.Deck;
 import com.anki_auto.enums.DeckDad;
-import com.anki_auto.enums.Type;
 import com.anki_auto.enums.TypeDad;
 import com.anki_auto.pages.LoginPage;
 import com.anki_auto.pages.MainPage;
@@ -27,7 +25,7 @@ public class AnkiCreateCardsDad {
         Driver.get().get("https://ankiweb.net/account/login");
         new LoginPage().login("dad");
         new MainPage().addCards();
-        new NewCardPage().create(
+        new NewCardPage().createSpanish(
                 TypeDad.BASIC_R.getName(),
                 DeckDad.PRONOUN_VERB_NOUN.getName(),
                 input

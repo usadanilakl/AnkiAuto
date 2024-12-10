@@ -1,24 +1,40 @@
 package com.anki_auto.runners;
 
 import com.anki_auto.Driver;
+import com.anki_auto.data.Phrases;
 import com.anki_auto.enums.Deck;
 import com.anki_auto.enums.Type;
 import com.anki_auto.pages.LoginPage;
 import com.anki_auto.pages.MainPage;
 import com.anki_auto.pages.NewCardPage;
-import org.openqa.selenium.WebDriver;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AnkiCreateCards {
     public static void main(String[] args) {
-        String input = "Yo necesito ayuda$ I need help%Yo tengo un libro$ I have a book%Yo puedo hablar español$ I can speak Spanish%Yo estoy leyendo un libro$ I am reading a book%Yo fui a la tienda$ I went to the store%Yo estoy feliz$ I am happy%Yo no entiendo$ I don't understand%Yo tengo que ir$ I have to go";
+        String input = Phrases.phrases;
+
+        Set<String> mixUpList = new HashSet<String>(Arrays.asList(input.split("%")));
+        input = "";
+        for (String word : mixUpList) {
+            input += word + "%";
+        }
 
 
         Driver.get().get("https://ankiweb.net/account/login");
         new LoginPage().login("me");
         new MainPage().addCards();
-        new NewCardPage().create(
-                Type.BASIC_R.getName(),
-                Deck.TEST.getName(),
+
+//        new NewCardPage().createSpanish(
+//                Type.BASIC_O.getName(),
+//                Deck.PHRASES_SPANISH.getName(),
+//                input
+//        );
+        new NewCardPage().createEnglish(
+                Type.BASIC_O.getName(),
+                Deck.PHRASES_ENGLISH.getName(),
                 input
         );
     }

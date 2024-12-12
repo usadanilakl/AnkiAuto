@@ -2,6 +2,7 @@ package com.anki_auto.runners;
 
 import com.anki_auto.Driver;
 import com.anki_auto.data.Phrases;
+import com.anki_auto.data.Pronouns;
 import com.anki_auto.enums.Deck;
 import com.anki_auto.enums.Type;
 import com.anki_auto.pages.LoginPage;
@@ -14,7 +15,9 @@ import java.util.Set;
 
 public class AnkiCreateCards {
     public static void main(String[] args) {
-        String input = Phrases.phrases;
+
+
+        String input = Pronouns.phrases;
 
         Set<String> mixUpList = new HashSet<String>(Arrays.asList(input.split("%")));
         input = "";
@@ -29,12 +32,12 @@ public class AnkiCreateCards {
 
 //        new NewCardPage().createSpanish(
 //                Type.BASIC_O.getName(),
-//                Deck.PHRASES_SPANISH.getName(),
+//                Deck.PRONOUNS_SPANISH.getName(),
 //                input
 //        );
         new NewCardPage().createEnglish(
                 Type.BASIC_O.getName(),
-                Deck.PHRASES_ENGLISH.getName(),
+                Deck.PRONOUNS_ENGLISH.getName(),
                 input
         );
     }

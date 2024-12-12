@@ -22,7 +22,7 @@ public class Driver {
     public static WebDriver get() {
         if (driverPool.get() == null) {
 
-            String browser = "chrome";
+            String browser = "edge";
 
             switch (browser) {
                 case "chrome":
